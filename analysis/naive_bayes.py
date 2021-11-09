@@ -2,6 +2,7 @@ from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
+import json
 
 class NaiveBayesAnalysis:
 
@@ -9,25 +10,34 @@ class NaiveBayesAnalysis:
         # create data frame containing your data, each column can be accessed # by df['column   name']
         self.df = np.loadtxt(file_path, int, delimiter=",")
 
+        self.X_train, self.X_test = train_test_split(self.df, test_size=0.33, random_state=42)
+
+        self.target_names_train = self.X_train[:,-1]
+        self.X_train = np.delete(self.X_train, -1, 1)
+
+        self.target_names_test = self.X_test[:,-1]
+        self.X_test = np.delete(self.X_test, -1, 1)
+
         # columns you want to model
-        features = [4,7,8,9,10]
+        self.features = [i for i in range(self.X_train.shape[1])]
+        #self.features = [4, 7, 8, 9, 10]
+        self.y_gnb = None
 
-        X_train, X_test = train_test_split(self.df, test_size=0.33, random_state=42)
-
-        target_names_train = X_train[:,-1]
-        X_train = np.delete(X_train, 20, 1)
-
-        target_names_test = X_test[:,-1]
-        X_test = np.delete(X_test, 20, 1)
-
+    def train(self):
         # call Gaussian Naive Bayesian class with default parameters
         gnb = GaussianNB()
 
         # train model
-        y_gnb = gnb.fit(X_train[:,features], target_names_train).predict(X_test[:,features])
+        self.y_gnb = gnb.fit(self.X_train[:,self.features], self.target_names_train).predict(self.X_test[:,self.features])
 
-        print("Correctly predicted {0} out of {1}".format(X_test.shape[0] - ((target_names_test != y_gnb).sum()), X_test.shape[0]))
+    def to_json(self):
+        incorrect = (self.target_names_test != self.y_gnb).sum()
+        return {"correct" : str(self.X_test.shape[0] - incorrect), "incorrect" : str(incorrect), "total": str(self.X_test.shape[0]) }
+
 
 if __name__ == "__main__":
     nb = NaiveBayesAnalysis("data\encoded.csv")
+    nb.train()
+    with open("./results.json", "w") as fl:
+        json.dump(nb.to_json(), fl)
     
