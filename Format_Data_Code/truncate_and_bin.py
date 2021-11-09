@@ -36,14 +36,14 @@ if __name__ == "__main__":
                         rtn += ",".join(line).replace("\n", "") + ","
                         rtn += ",".join([str(cur_year_record[line[4]]["win"]), str(cur_year_record[line[4]]["loss"]), str(cur_year_record[line[4]]["tie"]), str(cur_year_record[line[7]]["win"]), str(cur_year_record[line[7]]["loss"]), str(cur_year_record[line[7]]["tie"])])
                         for i in scoreBins:
-                            if scoreDiff >= 22:
-                                rtn += "," + scoreBins[22] + "\n"
+                            if scoreDiff > 0:
+                                rtn += ",Home_Win\n"
                                 break
-                            elif scoreDiff <= -22:
-                                rtn += "," + scoreBins[-22] + "\n"
+                            elif scoreDiff < 0:
+                                rtn += ",Home_Loss\n"
                                 break
-                            elif prevKey <= scoreDiff <= i:
-                                rtn += "," + scoreBins[prevKey] + "\n"
+                            else:
+                                rtn += ",Tie\n"
                                 break
                             prevKey = i
                         rtnFile += rtn
