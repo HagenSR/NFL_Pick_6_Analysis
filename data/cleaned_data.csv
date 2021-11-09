@@ -1,4 +1,4 @@
-schedule_date,schedule_season,schedule_week,schedule_playoff,team_home,score_home,score_away,team_away,team_favorite_id,spread_favorite,over_under_line,stadium,stadium_neutral,weather_temperature,weather_wind_mph,weather_humidity,weather_detail, home_win, home_loss, home_tie, away_win, away_loss, away_tie, score_bin, 
+schedule_date,schedule_season,schedule_week,schedule_playoff,team_home,score_home,score_away,team_away,team_favorite_id,spread_favorite,over_under_line,stadium,stadium_neutral,weather_temperature,weather_wind_mph,weather_humidity,weather_detail, home_win, home_loss, home_tie, away_win, away_loss, away_tie, score_bin 
 9/3/2000,2000,1,FALSE,Atlanta Falcons,36,28,San Francisco 49ers,ATL,-6.5,46.5,Georgia Dome,FALSE,72,0,,DOME,0,0,0,0,0,0,7 | 9
 9/3/2000,2000,1,FALSE,Buffalo Bills,16,13,Tennessee Titans,BUF,-1,40,Ralph Wilson Stadium,FALSE,70,7,82,,0,0,0,0,0,0,1 | 2
 9/3/2000,2000,1,FALSE,Cleveland Browns,7,27,Jacksonville Jaguars,JAX,-10.5,38.5,FirstEnergy Stadium,FALSE,75,8,86,,0,0,0,0,0,0,-22

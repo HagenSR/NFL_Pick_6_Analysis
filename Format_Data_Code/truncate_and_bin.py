@@ -61,7 +61,7 @@ if __name__ == "__main__":
     except Exception as e:
         print(e)
     with open('data/cleaned_data.csv', 'w') as fl:
-        fl.write((headerLine.replace('\n', "") + ", home_win, home_loss, home_tie, away_win, away_loss, away_tie, score_bin, \n"))
+        fl.write((headerLine.replace('\n', "") + ", home_win, home_loss, home_tie, away_win, away_loss, away_tie, score_bin \n"))
         fl.write(rtnFile)
 
 

@@ -18,7 +18,7 @@ if __name__ == "__main__":
     rtn = ""
     for row in csv:
         for col in range(len(row)):
-            if col != len(row):
+            if col != len(row) -1:
                 rtn += "{0},".format(mapping[col][row[col]])
             else:
                 rtn += "{0}".format(mapping[col][row[col]])
@@ -27,7 +27,7 @@ if __name__ == "__main__":
     with open("data\mapping.json","w") as fl:
         json.dump(mapping, fl)
     
-    with open("data\csv.csv", "w") as fl:
+    with open("data\encoded.csv", "w") as fl:
         fl.write(rtn)
 
 
