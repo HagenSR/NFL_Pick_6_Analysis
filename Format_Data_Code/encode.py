@@ -1,5 +1,12 @@
 import json
 
+def isfloat(num):
+    try:
+        float(num)
+        return True
+    except ValueError:
+        return False
+
 if __name__ == "__main__":
     mapping = {}
     csv = []
@@ -12,9 +19,12 @@ if __name__ == "__main__":
     for col in range(len(csv[0])):
         mapping[col] = {"count" : 0}
         for row in csv:
-            if row[col] not in mapping[col]:
+            if row[col] not in mapping[col] and not (row[col].isdigit() or isfloat(row[col])):
                 mapping[col][row[col]] = mapping[col]["count"]
                 mapping[col]["count"] += 1
+            elif row[col] not in mapping[col]:
+                mapping[col][row[col]] = row[col]
+
     rtn = ""
     for row in csv:
         for col in range(len(row)):
