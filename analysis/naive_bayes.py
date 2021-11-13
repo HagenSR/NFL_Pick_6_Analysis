@@ -63,6 +63,6 @@ if __name__ == "__main__":
     nb = NaiveBayesAnalysis("data\encoded.csv")
     nb.train()
 
-    with open("./results.json", "w") as fl:
+    with open("./data/results/naive_bayes.json", "w") as fl:
         json.dump(nb.to_json(), fl)
     
