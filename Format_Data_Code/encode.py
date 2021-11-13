@@ -10,8 +10,9 @@ def isfloat(num):
 if __name__ == "__main__":
     mapping = {}
     csv = []
+    header = ""
     with open("data\cleaned_data.csv") as fl:
-        fl.readline()
+        header = fl.readline()
         for line in fl:
             res = line.replace("\n", "").split(',')
             csv.append(res)
@@ -25,7 +26,7 @@ if __name__ == "__main__":
             elif row[col] not in mapping[col]:
                 mapping[col][row[col]] = row[col]
 
-    rtn = ""
+    rtn = header 
     for row in csv:
         for col in range(len(row)):
             if col != len(row) -1:

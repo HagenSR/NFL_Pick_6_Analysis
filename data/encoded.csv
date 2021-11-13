@@ -1,3 +1,4 @@
+schedule_date,schedule_season,schedule_week,schedule_playoff,team_home,team_away,team_favorite_id,spread_favorite,over_under_line,stadium,stadium_neutral,weather_detail,home_win,home_loss,home_tie,away_win,away_loss,away_tie,score_bin
 0,2000,1,0,0,0,0,-6.5,46.5,0,0,0,0,0,0,0,0,0,0
 0,2000,1,0,1,1,1,-1,40,1,0,1,0,0,0,0,0,0,0
 0,2000,1,0,2,2,2,-10.5,38.5,2,0,1,0,0,0,0,0,0,1
