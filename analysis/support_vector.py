@@ -28,7 +28,7 @@ class SupportVectorAnalysis:
         folds = KFold(n_splits=5, random_state=self.random_state, shuffle=True)
 
          # list all possible combinations of features
-        combos = [x for l in range(15, len(self.features)) for x in itertools.combinations(self.features, l)]
+        combos = [x for l in range(20, len(self.features)) for x in itertools.combinations(self.features, l)]
         #combos = [x for x in self.features]
         for index in range(len(combos)):
             print("Start: {0}, Index {1} out of {2}".format(datetime.now().time(), index, len(combos)))

@@ -60,6 +60,6 @@ if __name__ == "__main__":
     dt = DecisionTreeAnalysis("data\encoded.csv")
     dt.train()
 
-    with open("./data/decision_tree_results.json", "w") as fl:
+    with open("./data/results/decision_tree_results.json", "w") as fl:
         json.dump(dt.to_json(), fl)
     

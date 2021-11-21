@@ -11,8 +11,10 @@ class NaiveBayesAnalysis:
     def __init__(self, file_path):
         # load encoded csv into numpy array
         self.df = pd.read_csv(file_path)
+
         # Seperate targets from data
         self.target_names = self.df["score_bin"]
+
         self.df = self.df.drop("score_bin", 1)
 
         # list of all feature indicies
@@ -29,7 +31,7 @@ class NaiveBayesAnalysis:
         folds = KFold(n_splits=5, random_state=self.random_state, shuffle=True)
 
         # list all possible combinations of features
-        combos = [x for l in range(2, len(self.features)) for x in itertools.combinations(self.features, l)]
+        combos = [x for l in range(15, len(self.features)) for x in itertools.combinations(self.features, l)]
 
         # Iterate over all feature combinations
         for index in range(len(combos)):
@@ -41,10 +43,9 @@ class NaiveBayesAnalysis:
 
             # run the NB model over each kfold
             for train_index, test_index in folds.split(self.df):
-                X_train, X_test = self.df.loc[train_index][combo], self.df.loc[test_index][self.features]
-                y = self.target_names[train_index]
-                y_gnb = gnb.fit(X_train, y)
-                y_gnb = y_gnb.predict(X_test)
+                X_train, X_test = self.df.loc[train_index][list(combo)], self.df.loc[test_index][list(combo)]
+                y_gnb = gnb.fit(X_train, self.target_names[train_index]).predict(X_test)
+
                 incorrect += (self.target_names[test_index] != y_gnb ).sum()
                 total += len(y_gnb)
 
