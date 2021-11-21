@@ -2,22 +2,21 @@ import itertools
 from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import KFold
 from sklearn.model_selection import train_test_split
-import numpy as np
 import pandas as pd
+import numpy as np
 import json
 
 class NaiveBayesAnalysis:
 
     def __init__(self, file_path):
         # load encoded csv into numpy array
-        self.df = np.loadtxt(file_path, int, delimiter=",")
-
+        self.df = pd.read_csv(file_path)
         # Seperate targets from data
-        self.target_names = self.df[:,-1]
-        self.df = np.delete(self.df, -1, 1)
+        self.target_names = self.df["score_bin"]
+        self.df = self.df.drop("score_bin", 1)
 
         # list of all feature indicies
-        self.features = [i for i in range(self.df.shape[1])]
+        self.features = [self.df.columns[i] for i in range(len(self.df.columns))]
 
         # Random state seed, results dict
         self.random_state = 101
@@ -42,9 +41,10 @@ class NaiveBayesAnalysis:
 
             # run the NB model over each kfold
             for train_index, test_index in folds.split(self.df):
-                X_train, X_test = self.df[train_index], self.df[test_index]
-                y_gnb = gnb.fit(X_train[:,combo], self.target_names[train_index]).predict(X_test[:,combo])
-
+                X_train, X_test = self.df.loc[train_index][combo], self.df.loc[test_index][self.features]
+                y = self.target_names[train_index]
+                y_gnb = gnb.fit(X_train, y)
+                y_gnb = y_gnb.predict(X_test)
                 incorrect += (self.target_names[test_index] != y_gnb ).sum()
                 total += len(y_gnb)
 

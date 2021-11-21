@@ -2,7 +2,6 @@ from datetime import datetime
 import itertools
 from sklearn import svm
 from sklearn.model_selection import KFold
-from sklearn.model_selection import train_test_split
 import pandas as pd
 import json
 import matplotlib.pyplot as plt

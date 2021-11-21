@@ -1,4 +1,5 @@
 import json
+from sklearn import preprocessing
 
 def isfloat(num):
     try:
@@ -37,7 +38,7 @@ if __name__ == "__main__":
 
     with open("data\mapping.json","w") as fl:
         json.dump(mapping, fl)
-    
+        
     with open("data\encoded.csv", "w") as fl:
         fl.write(rtn)
 
