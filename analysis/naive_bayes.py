@@ -1,3 +1,4 @@
+from datetime import datetime
 import itertools
 from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import KFold
@@ -5,6 +6,7 @@ from sklearn.model_selection import train_test_split
 import pandas as pd
 import numpy as np
 import json
+from datetime import datetime
 
 class NaiveBayesAnalysis:
 
@@ -15,7 +17,7 @@ class NaiveBayesAnalysis:
         # Seperate targets from data
         self.target_names = self.df["score_bin"]
 
-        self.df = self.df.drop("score_bin", 1)
+        self.df = self.df.drop("score_bin", axis=1)
 
         # list of all feature indicies
         self.features = [self.df.columns[i] for i in range(len(self.df.columns))]
@@ -31,13 +33,13 @@ class NaiveBayesAnalysis:
         folds = KFold(n_splits=5, random_state=self.random_state, shuffle=True)
 
         # list all possible combinations of features
-        combos = [x for l in range(15, len(self.features)) for x in itertools.combinations(self.features, l)]
+        combos = [x for l in range(2, len(self.features)) for x in itertools.combinations(self.features, l)]
 
         # Iterate over all feature combinations
         for index in range(len(combos)):
             combo = combos[index]
             if index % 1000 == 0:
-                print("{0} out of {1}".format(index ,len(combos)))
+                print("Start: {0}, Index {1} out of {2}".format(datetime.now().time(), index, len(combos)))
             incorrect = 0
             total = 0
 

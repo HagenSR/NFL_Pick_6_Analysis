@@ -13,7 +13,7 @@ class SupportVectorAnalysis:
         self.df = pd.read_csv(file_path)
         # Seperate targets from data
         self.target_names = self.df["score_bin"]
-        self.df = self.df.drop("score_bin", 1)
+        self.df = self.df.drop("score_bin", axis=1)
 
         # list of all feature indicies
         self.features = [self.df.columns[i] for i in range(len(self.df.columns))]

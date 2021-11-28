@@ -3,7 +3,7 @@ import json
 
 if __name__ == "__main__":
     jsn = []
-    file_name = "data\\naive_bayes_results"
+    file_name = "data\\results\\naive_bayes"
     with open(file_name + ".json") as fl:
         jsn = json.load(fl)
     rtn = {}
