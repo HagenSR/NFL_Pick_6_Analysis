@@ -27,27 +27,20 @@ class SupportVectorAnalysis:
         # Set up kfold validation
         folds = KFold(n_splits=5, random_state=self.random_state, shuffle=True)
 
-         # list all possible combinations of features
-        combos = [x for l in range(20, len(self.features)) for x in itertools.combinations(self.features, l)]
-        #combos = [x for x in self.features]
-        for index in range(len(combos)):
-            print("Start: {0}, Index {1} out of {2}".format(datetime.now().time(), index, len(combos)))
-            # Iterate over all feature combinations
-            incorrect = 0
-            total = 0
-            combo = combos[index]
-            # run the SVM model over each kfold
-            for train_index, test_index in folds.split(self.df):
-                X_train, X_test = self.df.loc[train_index][self.features], self.df.loc[test_index][self.features]
-                y_clf = clf.fit(X_train, self.target_names[train_index]).predict(X_test)
+        incorrect = 0
+        total = 0
+        # run the SVM model over each kfold
+        for train_index, test_index in folds.split(self.df):
+            X_train, X_test = self.df.loc[train_index][self.features], self.df.loc[test_index][self.features]
+            y_clf = clf.fit(X_train, self.target_names[train_index]).predict(X_test)
 
-                incorrect += (self.target_names[test_index] != y_clf ).sum()
-                total += len(y_clf)
+            incorrect += (self.target_names[test_index] != y_clf ).sum()
+            total += len(y_clf)
 
-            # Add results to total for this feature combo
-            self.results[str(combo)] = {"correct" : str(total - incorrect), "incorrect" : str(incorrect), 
-                                    "total": str(total) , "accuracy" : (total- incorrect) / total }
-            print("End: {0}".format(datetime.now().time()))
+        # Add results to total for this feature combo
+        self.results["res"] = {"correct" : str(total - incorrect), "incorrect" : str(incorrect), 
+                                "total": str(total) , "accuracy" : (total- incorrect) / total }
+        print("End: {0}".format(datetime.now().time()))
 
 
     def to_json(self):

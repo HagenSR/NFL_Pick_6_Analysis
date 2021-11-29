@@ -32,7 +32,7 @@ class KNeighborsAnalysis:
         folds = KFold(n_splits=5, random_state=self.random_state, shuffle=True)
 
         # list all possible combinations of features
-        combos = [x for l in range(10, len(self.features)) for x in itertools.combinations(self.features, l)]
+        combos = [x for l in range(4, len(self.features)) for x in itertools.combinations(self.features, l)]
 
         # Iterate over all feature combinations
         for index in range(len(combos)):

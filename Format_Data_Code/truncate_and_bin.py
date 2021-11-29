@@ -36,14 +36,14 @@ if __name__ == "__main__":
                         rtn += ",".join(line).replace("\n", "") + ","
                         rtn += ",".join([str(cur_year_record[line[4]]["win"]), str(cur_year_record[line[4]]["loss"]), str(cur_year_record[line[4]]["tie"]), str(cur_year_record[line[7]]["win"]), str(cur_year_record[line[7]]["loss"]), str(cur_year_record[line[7]]["tie"])])
                         for i in scoreBins:
-                            if scoreDiff > 0:
-                                rtn += ",Home_Win\n"
+                            if scoreDiff >= 22:
+                                rtn += "," + scoreBins[22] + "\n"
                                 break
-                            elif scoreDiff < 0:
-                                rtn += ",Home_Loss\n"
+                            elif scoreDiff <= -22:
+                                rtn += "," + scoreBins[-22] + "\n"
                                 break
-                            else:
-                                rtn += ",Tie\n"
+                            elif prevKey <= scoreDiff <= i:
+                                rtn += "," + scoreBins[prevKey] + "\n"
                                 break
                             prevKey = i
                         rtnFile += rtn
@@ -63,8 +63,3 @@ if __name__ == "__main__":
     with open('data/cleaned_data.csv', 'w') as fl:
         fl.write((headerLine.replace('\n', "") + ",home_win,home_loss,home_tie,away_win,away_loss,away_tie,score_bin\n"))
         fl.write(rtnFile)
-
-
-
-                
-
