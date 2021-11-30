@@ -2,9 +2,11 @@ import itertools
 from sklearn.neighbors import KNeighborsClassifier
 from sklearn.model_selection import KFold
 import pandas as pd
-import numpy as np
 import json
 from datetime import datetime
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 class KNeighborsAnalysis:
 
@@ -32,7 +34,7 @@ class KNeighborsAnalysis:
         folds = KFold(n_splits=5, random_state=self.random_state, shuffle=True)
 
         # list all possible combinations of features
-        combos = [x for l in range(10, len(self.features)) for x in itertools.combinations(self.features, l)]
+        combos = [x for l in range(2, len(self.features)) for x in itertools.combinations(self.features, l)]
 
         # Iterate over all feature combinations
         for index in range(len(combos)):
@@ -60,11 +62,25 @@ class KNeighborsAnalysis:
         res = sorted(self.results.items(), key=lambda x:x[1]["accuracy"], reverse=True)
         return dict(res)
 
+    def generate_matrix(self):
+        gnb = KNeighborsClassifier(n_neighbors=101)
+
+        features = ['schedule_week', 'schedule_playoff', 'team_away', 'home_win', 'home_tie', 'away_win', 'away_tie']
+
+        X_train, X_test, y_train, y_test = train_test_split(self.df, self.target_names, test_size=0.33, random_state=42)
+        # run the NB model over each kfold
+        y_gnb = gnb.fit(X_train[features], y_train).predict(X_test[features])
+
+        tes = confusion_matrix(y_test, y_gnb)
+        disp = ConfusionMatrixDisplay(tes, display_labels=["Home_Win", "Home_Loss", "Tie"])
+        disp.plot()
+        plt.title("K neighbors")
+        plt.show()
+
 
 if __name__ == "__main__":
     nb = KNeighborsAnalysis("data\encoded.csv")
-    nb.train()
-
-    with open("./data/results/KNeighbors_results.json", "w") as fl:
-        json.dump(nb.to_json(), fl)
+    nb.generate_matrix()
+    # with open("./data/results/KNeighbors_results.json", "w") as fl:
+    #     json.dump(nb.to_json(), fl)
     

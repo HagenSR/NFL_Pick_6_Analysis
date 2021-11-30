@@ -1,32 +1,26 @@
 {
-    "('team_home', 'home_win', 'home_loss', 'away_loss')": {
-        "correct": "3312",
-        "incorrect": "2281",
+    "['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss']": {
+        "correct": "3421",
+        "incorrect": "2172",
         "total": "5593",
-        "accuracy": 0.5921687824065797
+        "accuracy": 0.6116574289290184
     },
-    "('home_win', 'home_loss', 'away_win', 'away_loss')": {
-        "correct": "3297",
-        "incorrect": "2296",
+    "['spread_favorite', 'home_win', 'home_loss', 'away_win']": {
+        "correct": "3414",
+        "incorrect": "2179",
         "total": "5593",
-        "accuracy": 0.5894868585732165
+        "accuracy": 0.6104058644734489
     },
-    "('team_home', 'home_loss', 'away_win', 'away_loss')": {
-        "correct": "3293",
-        "incorrect": "2300",
+    "['schedule_season', 'schedule_week', 'team_home', 'team_away', 'team_favorite_id', 'spread_favorite', 'over_under_line', 'stadium', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie']": {
+        "correct": "3335",
+        "incorrect": "2258",
         "total": "5593",
-        "accuracy": 0.5887716788843197
+        "accuracy": 0.5962810656177364
     },
-    "('team_home', 'home_win', 'away_win', 'away_loss')": {
-        "correct": "3285",
-        "incorrect": "2308",
+    "['schedule_week', 'spread_favorite', 'home_win', 'home_loss']": {
+        "correct": "3321",
+        "incorrect": "2272",
         "total": "5593",
-        "accuracy": 0.587341319506526
-    },
-    "('team_home', 'home_win', 'home_loss', 'away_win')": {
-        "correct": "3251",
-        "incorrect": "2342",
-        "total": "5593",
-        "accuracy": 0.5812622921509029
+        "accuracy": 0.5937779367065975
     }
 }

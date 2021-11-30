@@ -17,8 +17,13 @@ class NaiveBayesAnalysis:
         self.df = self.df.drop("score_bin", axis=1)
 
         # list of all feature indicies
-        self.features = [self.df.columns[i] for i in range(len(self.df.columns))]
-        self.features = ['team_home',  'home_win',  'home_loss',  'away_win',  'away_loss']
+        # list of all feature indicies
+        self.features = []
+        self.features.append(['schedule_week', 'spread_favorite', 'home_win', 'home_loss'])
+        self.features.append(['spread_favorite', 'home_win', 'home_loss', 'away_win'])
+        self.features.append(['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_season','schedule_week','team_home','team_away','team_favorite_id','spread_favorite','over_under_line','stadium','home_win','home_loss','home_tie','away_win','away_loss','away_tie'])
+
         # Random state seed, results dict
         self.random_state = 101
         self.results = {}
@@ -29,14 +34,11 @@ class NaiveBayesAnalysis:
         # Set up kfold validation
         folds = KFold(n_splits=5, random_state=self.random_state, shuffle=True)
 
-        # list all possible combinations of features
-        combos = [x for l in range(4, len(self.features)) for x in itertools.combinations(self.features, l)]
-
         # Iterate over all feature combinations
-        for index in range(len(combos)):
-            combo = combos[index]
+        for index in range(len(self.features)):
+            combo = self.features[index]
             if index % 1 == 0:
-                 print("Start: {0}, Index {1} out of {2}".format(datetime.now().time(), index, len(combos)))
+                 print("Start: {0}, Index {1} out of {2}".format(datetime.now().time(), index, len(self.features)))
             incorrect = 0
             total = 0
 

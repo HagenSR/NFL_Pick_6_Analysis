@@ -1,0 +1,26 @@
+{
+    "['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss']": {
+        "correct": "3411",
+        "incorrect": "2182",
+        "total": "5593",
+        "accuracy": 0.6098694797067763
+    },
+    "['spread_favorite', 'home_win', 'home_loss', 'away_win']": {
+        "correct": "3407",
+        "incorrect": "2186",
+        "total": "5593",
+        "accuracy": 0.6091543000178795
+    },
+    "['schedule_season', 'schedule_week', 'team_home', 'team_away', 'team_favorite_id', 'spread_favorite', 'over_under_line', 'stadium', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie']": {
+        "correct": "3362",
+        "incorrect": "2231",
+        "total": "5593",
+        "accuracy": 0.6011085285177901
+    },
+    "['schedule_week', 'spread_favorite', 'home_win', 'home_loss']": {
+        "correct": "3288",
+        "incorrect": "2305",
+        "total": "5593",
+        "accuracy": 0.5878777042731986
+    }
+}
