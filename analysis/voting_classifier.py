@@ -68,6 +68,27 @@ class NaiveBayesAnalysis:
 
     def generate_matrix(self):
         gnb = GaussianNB()
+        tree = DecisionTreeClassifier()
+        kneigh = KNeighborsClassifier(n_neighbors=101)
+
+        vote = VotingClassifier(
+                estimators=[('gnb', gnb), ('tree', tree), ('kneigh', kneigh)],
+                voting='hard')
+
+        features = ['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss']
+
+        X_train, X_test, y_train, y_test = train_test_split(self.df, self.target_names, test_size=0.33, random_state=42)
+        # run the NB model over each kfold
+        y_gnb = vote.fit(X_train[features], y_train).predict(X_test[features])
+
+        tes = confusion_matrix(y_test, y_gnb)
+        disp = ConfusionMatrixDisplay(tes, display_labels=["-22", "-15 | -21", "-10 | -14", "-7 | -9", "-5 | -6", "-3 | -4", "-1 | -2" ,"1 | 2", "3 | 4", "5 | 6", "7 | 9", "10 | 14", "15 | 21","22+"])
+        disp.plot()
+        plt.title("Vote Classifier")
+        plt.show()
+
+    def generate_matrix(self):
+        gnb = GaussianNB()
 
         features = ['team_home', 'home_win', 'home_loss', 'away_win', 'away_loss']
 
@@ -91,9 +112,9 @@ class NaiveBayesAnalysis:
 
 if __name__ == "__main__":
     nb = NaiveBayesAnalysis("data\encoded.csv")
-    nb.train()
-    #nb.generate_matrix()
+    # nb.train()
+    nb.generate_matrix()
 
-    with open("./data/results/vote.json", "w") as fl:
-        json.dump(nb.to_json(), fl)
+    # with open("./data/results/vote.json", "w") as fl:
+    #     json.dump(nb.to_json(), fl)
     
