@@ -2,11 +2,13 @@ from datetime import datetime
 import itertools
 from sklearn.naive_bayes import GaussianNB
 from sklearn.model_selection import KFold
-from sklearn.model_selection import train_test_split
 import pandas as pd
-import numpy as np
 import json
 from datetime import datetime
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
+
 
 class NaiveBayesAnalysis:
 
@@ -55,6 +57,22 @@ class NaiveBayesAnalysis:
             self.results[str(combo)] = {"correct" : str(total - incorrect), "incorrect" : str(incorrect), 
                                     "total": str(total) , "accuracy" : (total- incorrect) / total }
 
+    def generate_matrix(self):
+        gnb = GaussianNB()
+
+        features = ['team_home', 'home_win', 'home_loss', 'away_win', 'away_loss']
+
+        X_train, X_test, y_train, y_test = train_test_split(self.df, self.target_names, test_size=0.33, random_state=42)
+        # run the NB model over each kfold
+        y_gnb = gnb.fit(X_train[features], y_train).predict(X_test[features])
+
+        tes = confusion_matrix(y_test, y_gnb)
+        disp = ConfusionMatrixDisplay(tes, display_labels=["-22", "-15 | -21", "-10 | -14", "-7 | -9", "-5 | -6", "-3 | -4", "-1 | -2" ,"1 | 2", "3 | 4", "5 | 6", "7 | 9", "10 | 14", "15 | 21","22+"])
+        disp.plot()
+        plt.title("Naive Bayes")
+        plt.show()
+        
+
 
     def to_json(self):
         # Sort results by accuracy and return
@@ -64,8 +82,9 @@ class NaiveBayesAnalysis:
 
 if __name__ == "__main__":
     nb = NaiveBayesAnalysis("data\encoded.csv")
-    nb.train()
+    #nb.train()
+    nb.generate_matrix()
 
-    with open("./data/results/naive_bayes.json", "w") as fl:
-        json.dump(nb.to_json(), fl)
+    # with open("./data/results/naive_bayes.json", "w") as fl:
+    #     json.dump(nb.to_json(), fl)
     
