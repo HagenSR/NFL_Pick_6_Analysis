@@ -1,1 +1,26 @@
-{"Vote": {"accuracy": 0.49933911091713945, "stdev": 0.13168034610580054}, "Kneigh": {"accuracy": 0.4838058194688907, "stdev": 0.044870901697710165}, "MLP": {"accuracy": 0.4735944916317757, "stdev": 0.1377104569257474}, "Naive Bayes": {"accuracy": 0.3174996522898512, "stdev": 0.14497807142598007}}
+{
+    "['spread_favorite', 'home_win', 'home_loss', 'away_win']": {
+        "correct": "3356",
+        "incorrect": "2237",
+        "total": "5593",
+        "accuracy": 0.6000357589844448
+    },
+    "['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss']": {
+        "correct": "3352",
+        "incorrect": "2241",
+        "total": "5593",
+        "accuracy": 0.599320579295548
+    },
+    "['schedule_season', 'schedule_week', 'team_home', 'team_away', 'team_favorite_id', 'spread_favorite', 'over_under_line', 'stadium', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie']": {
+        "correct": "3274",
+        "incorrect": "2319",
+        "total": "5593",
+        "accuracy": 0.5853745753620597
+    },
+    "['schedule_week', 'spread_favorite', 'home_win', 'home_loss']": {
+        "correct": "3265",
+        "incorrect": "2328",
+        "total": "5593",
+        "accuracy": 0.5837654210620419
+    }
+}
