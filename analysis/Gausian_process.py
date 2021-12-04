@@ -22,6 +22,12 @@ class NaiveBayesAnalysis:
         self.features.append(['schedule_week', 'spread_favorite', 'home_win', 'home_loss'])
         self.features.append(['spread_favorite', 'home_win', 'home_loss', 'away_win'])
         self.features.append(['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_week', 'schedule_playoff', 'team_away', 'home_win', 'home_tie', 'away_win', 'away_tie'])
+        self.features.append(['schedule_week', 'schedule_playoff', 'team_away', 'home_win', 'away_win', 'away_tie'])
+        self.features.append(['home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_season', 'team_home', 'team_away', 'home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_week', 'over_under_line', 'home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_playoff', 'team_away', 'spread_favorite', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie'])
         self.features.append(['schedule_season','schedule_week','team_home','team_away','team_favorite_id','spread_favorite','over_under_line','stadium','home_win','home_loss','home_tie','away_win','away_loss','away_tie'])
 
         # Random state seed, results dict
@@ -64,7 +70,7 @@ class NaiveBayesAnalysis:
 if __name__ == "__main__":
     nb = NaiveBayesAnalysis("data\encoded.csv")
     nb.train()
-
+    'schedule_playoff', 'team_away', 'spread_favorite', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie'
     with open("./data/results/gausian_process_results2.json", "w") as fl:
         json.dump(nb.to_json(), fl)
     

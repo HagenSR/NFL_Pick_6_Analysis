@@ -21,8 +21,13 @@ class MLPClassifierAnalysis:
         self.features.append(['schedule_week', 'spread_favorite', 'home_win', 'home_loss'])
         self.features.append(['spread_favorite', 'home_win', 'home_loss', 'away_win'])
         self.features.append(['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_week', 'schedule_playoff', 'team_away', 'home_win', 'home_tie', 'away_win', 'away_tie'])
+        self.features.append(['schedule_week', 'schedule_playoff', 'team_away', 'home_win', 'away_win', 'away_tie'])
+        self.features.append(['home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_season', 'team_home', 'team_away', 'home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_week', 'over_under_line', 'home_win', 'home_loss', 'away_win', 'away_loss'])
+        self.features.append(['schedule_playoff', 'team_away', 'spread_favorite', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie'])
         self.features.append(['schedule_season','schedule_week','team_home','team_away','team_favorite_id','spread_favorite','over_under_line','stadium','home_win','home_loss','home_tie','away_win','away_loss','away_tie'])
-
 
         # Random state seed, results dict
         self.random_state = 101
@@ -62,7 +67,7 @@ class MLPClassifierAnalysis:
     def generate_matrix(self):
         gnb = MLPClassifier(solver='lbfgs', alpha=1e-5, hidden_layer_sizes=(15,), random_state=self.random_state, max_iter=10000)
 
-        features = ['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss']
+        features = ['schedule_playoff', 'team_away', 'spread_favorite', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie']
 
         X_train, X_test, y_train, y_test = train_test_split(self.df, self.target_names, test_size=0.33, random_state=42)
         # run the NB model over each kfold

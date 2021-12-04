@@ -82,9 +82,9 @@ class NaiveBayesAnalysis:
 
 if __name__ == "__main__":
     nb = NaiveBayesAnalysis("data\encoded.csv")
-    #nb.train()
-    nb.generate_matrix()
+    nb.train()
+    #nb.generate_matrix()
 
-    # with open("./data/results/naive_bayes.json", "w") as fl:
-    #     json.dump(nb.to_json(), fl)
+    with open("./data/results/naive_bayes.json", "w") as fl:
+        json.dump(nb.to_json(), fl)
     
