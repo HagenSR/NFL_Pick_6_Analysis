@@ -5,6 +5,8 @@ from sklearn.model_selection import KFold
 import pandas as pd
 import json
 import matplotlib.pyplot as plt
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.model_selection import train_test_split
 
 class SupportVectorAnalysis:
 
@@ -52,6 +54,22 @@ class SupportVectorAnalysis:
             print("End: {0}".format(datetime.now().time()))
 
 
+    def generate_matrix(self):
+        gnb = svm.SVC()
+
+        features = ['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss']
+
+        X_train, X_test, y_train, y_test = train_test_split(self.df, self.target_names, test_size=0.33, random_state=42)
+        # run the NB model over each kfold
+        y_gnb = gnb.fit(X_train[features], y_train).predict(X_test[features])
+
+        tes = confusion_matrix(y_test, y_gnb)
+        disp = ConfusionMatrixDisplay(tes, display_labels=["-22", "-15 | -21", "-10 | -14", "-7 | -9", "-5 | -6", "-3 | -4", "-1 | -2" ,"1 | 2", "3 | 4", "5 | 6", "7 | 9", "10 | 14", "15 | 21","22+"])
+        disp.plot()
+        plt.title("Support Vector Machine")
+        plt.show()
+
+
     def to_json(self):
         # Sort results by accuracy and return
         res = sorted(self.results.items(), key=lambda x:x[1]["accuracy"], reverse=True)
@@ -60,8 +78,9 @@ class SupportVectorAnalysis:
 
 if __name__ == "__main__":
     dt = SupportVectorAnalysis("data\encoded.csv")
-    dt.train()
+    #dt.train()
+    dt.generate_matrix()
 
-    with open("./data/results/svm_results.json", "w") as fl:
-        json.dump(dt.to_json(), fl)
+    # with open("./data/results/svm_results.json", "w") as fl:
+    #     json.dump(dt.to_json(), fl)
     
