@@ -83,6 +83,7 @@ class NaiveBayesAnalysis:
 
         tes = confusion_matrix(y_test, y_gnb)
         disp = ConfusionMatrixDisplay(tes, display_labels=["Home_Win", "Home_Loss", "Tie"])
+        plt.rcParams.update({'font.size': 22})
         disp.plot()
         plt.title("Vote Classifier")
         plt.show()

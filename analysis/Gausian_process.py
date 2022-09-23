@@ -4,6 +4,9 @@ from sklearn.model_selection import KFold
 import pandas as pd
 import json
 from datetime import datetime
+from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay
+from sklearn.model_selection import train_test_split
+import matplotlib.pyplot as plt
 
 class NaiveBayesAnalysis:
 
@@ -57,8 +60,25 @@ class NaiveBayesAnalysis:
                 total += len(y_gnb)
 
             # Add results to total for this feature combo
-            self.results[str(combo)] = {"correct" : str(total - incorrect), "incorrect" : str(incorrect), 
+            self.results[str(combo)] = {"correct" : str(total - incorrect), "incorrect" : str(incorrect),
                                     "total": str(total) , "accuracy" : (total- incorrect) / total }
+
+
+
+    def generate_matrix(self):
+        gnb = GaussianProcessClassifier()
+
+        features = ['schedule_week', 'team_home', 'spread_favorite', 'home_win', 'home_loss', 'away_win', 'away_loss']
+
+        X_train, X_test, y_train, y_test = train_test_split(self.df, self.target_names, test_size=0.33, random_state=42)
+        # run the NB model over each kfold
+        y_gnb = gnb.fit(X_train[features], y_train).predict(X_test[features])
+
+        tes = confusion_matrix(y_test, y_gnb)
+        disp = ConfusionMatrixDisplay(tes, display_labels=["Home_Win", "Home_Loss", "Tie"])
+        disp.plot()
+        plt.title("Gausian Process Classifier")
+        plt.show() 
 
 
     def to_json(self):
@@ -69,8 +89,9 @@ class NaiveBayesAnalysis:
 
 if __name__ == "__main__":
     nb = NaiveBayesAnalysis("data\encoded.csv")
-    nb.train()
-    'schedule_playoff', 'team_away', 'spread_favorite', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie'
-    with open("./data/results/gausian_process_results2.json", "w") as fl:
-        json.dump(nb.to_json(), fl)
-    
+    nb.generate_matrix()
+    #nb.train()
+    #'schedule_playoff', 'team_away', 'spread_favorite', 'home_win', 'home_loss', 'home_tie', 'away_win', 'away_loss', 'away_tie'
+    # with open("./data/results/gausian_process_results2.json", "w") as fl:
+    #     json.dump(nb.to_json(), fl)
+
